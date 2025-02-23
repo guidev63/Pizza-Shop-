@@ -54,7 +54,7 @@ export function SignIn() {
       <Toaster richColors position="bottom-right" />
 
       <div className="p-8">
-      <Button asChild className="absolute">
+      <Button variant="ghost" asChild className="absolute right-8  top-4">
       <Link
         to="/sign-up" className="">
           Novo estabelecimento
