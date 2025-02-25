@@ -11,10 +11,9 @@ export function App() {
       <ThemeProvider storageKey="pizzashop-theme" defaultTheme="dark">
       <Helmet titleTemplate="%s | pizza.shop" />
       
-      {/* Componente Toaster para exibir notificações */}
       <Toaster richColors position="bottom-right" />
 
-      {/* Provedor de rotas */}
+
       <RouterProvider router={router} />
       </ThemeProvider>
     </HelmetProvider>
