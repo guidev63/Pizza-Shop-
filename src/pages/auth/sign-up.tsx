@@ -7,7 +7,6 @@ import { toast } from "sonner";
 import { Toaster } from "sonner";
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Phone } from "lucide-react";
 
 // Definição do schema do formulário com Zod
 const signUpForm = z.object({
