@@ -53,7 +53,6 @@ export function SignUp() {
   return (
     <>
       <Helmet title="Login" />
-      {/* Componente para exibir toasts */}
       <Toaster richColors position="bottom-right" />
       <div className="p-8">
         <Button variant="ghost" asChild className="absolute right-8 top-4">
@@ -67,7 +66,6 @@ export function SignUp() {
             </p>
           </div>
 
-          {/* Formulário de cadastro */}
           <form onSubmit={handleSubmit(handleSignUp)} className="space-y-4">
             <div className="space-y-2">
               <Label htmlFor="restaurantName">Nome do Estabelecimento</Label>
@@ -110,7 +108,7 @@ export function SignUp() {
               />
             </div>
 
-            {/* Botão de submit */}
+
             <button
               disabled={isSubmitting}
               type="submit"
