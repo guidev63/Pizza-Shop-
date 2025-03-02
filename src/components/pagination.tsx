@@ -15,7 +15,6 @@ export function Pagination({ pageIndex, perPage, totalCount }: PaginationProps) 
       <span className="text-sm text-muted-foreground">
         Total de {totalCount} item(s)
       </span>
-
       <div className="flex items-center gap-6 lg:gap-8">
         <div className="text-sm font-medium">
           Página {pageIndex + 1} de {pages}
