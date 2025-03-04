@@ -23,25 +23,21 @@ export function SignIn() {
     formState: { isSubmitting },
   } = useForm<SignInForm>();
 
-  // Função para lidar com o envio do formulário
   async function handleSignIn(data: SignInForm) {
     try {
       console.log(data);
 
-      // Simula um atraso de 2 segundos (para visualizar o estado "Aguarde...")
       await new Promise((resolve) => setTimeout(resolve, 2000));
 
-      // Exibe o toast de sucesso após o delay
       toast.success("Enviamos um link de autenticação para seu e-mail!", {
         action: {
           label: "Reenviar",
-          onClick: () => handleSignIn(data), // Reenvia o link ao clicar no botão
+          onClick: () => handleSignIn(data), 
         },
-        duration: 4000, // Tempo de exibição do toast
-        position: "bottom-right", // Posicionamento do toast
+        duration: 4000,
+        position: "bottom-right",
       });
     } catch {
-      // Exibe o toast de erro em caso de falha
       toast.error("Credenciais inválidas.");
     }
   }
@@ -50,7 +46,6 @@ export function SignIn() {
     <>
       <Helmet title="Login" />
 
-      {/* Componente para exibir toasts */}
       <Toaster richColors position="bottom-right" />
 
       <div className="p-8">
