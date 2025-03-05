@@ -7,14 +7,14 @@ import { toast } from "sonner";
 import { Toaster } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
+import { useMutation } from "@tanstack/react-query";
+import { signIn } from "@/api/sign-in";
 
-// Definição do schema do formulário com Zod
 const signInForm = z.object({
   email: z.string().email(),
 });
 
-// Tipo inferido a partir do schema
-type SignInForm = z.infer<typeof signInForm>;
+  type SignInForm = z.infer<typeof signInForm>;
 
 export function SignIn() {
   const {
@@ -22,6 +22,10 @@ export function SignIn() {
     handleSubmit,
     formState: { isSubmitting },
   } = useForm<SignInForm>();
+
+   const { mutateAsync:authenticate} = useMutation({
+    mutationFn:signIn,
+  })
 
   async function handleSignIn(data: SignInForm) {
     try {
@@ -32,7 +36,7 @@ export function SignIn() {
       toast.success("Enviamos um link de autenticação para seu e-mail!", {
         action: {
           label: "Reenviar",
-          onClick: () => handleSignIn(data), 
+          onClick: () => handleSignIn(data),
         },
         duration: 4000,
         position: "bottom-right",
@@ -49,12 +53,12 @@ export function SignIn() {
       <Toaster richColors position="bottom-right" />
 
       <div className="p-8">
-      <Button variant="ghost" asChild className="absolute right-8  top-4">
-      <Link
-        to="/sign-up" className="">
-          Novo estabelecimento
-       </Link> 
-      </Button>
+        <Button variant="ghost" asChild className="absolute right-8  top-4">
+          <Link
+            to="/sign-up" className="">
+            Novo estabelecimento
+          </Link>
+        </Button>
         <div className="w-[350px] flex flex-col justify-center gap-6">
           <div className="flex flex-col gap-2 text-center">
             <h1 className="text-2xl font-semibold tracking-tight">Acessar painel</h1>
@@ -63,7 +67,6 @@ export function SignIn() {
             </p>
           </div>
 
-          {/* Formulário de login */}
           <form onSubmit={handleSubmit(handleSignIn)} className="space-y-4">
             <div className="space-y-2">
               <Label htmlFor="email">Seu e-mail</Label>
@@ -76,7 +79,6 @@ export function SignIn() {
               />
             </div>
 
-            {/* Botão de submit */}
             <button
               disabled={isSubmitting}
               type="submit"
