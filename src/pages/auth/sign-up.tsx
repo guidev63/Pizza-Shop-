@@ -7,8 +7,9 @@ import { toast } from "sonner";
 import { Toaster } from "sonner";
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
+import { useMutation } from "@tanstack/react-query";
+import { registerRestaurant } from "@/api/register-restaurant";
 
-// Definição do schema do formulário com Zod
 const signUpForm = z.object({
   restaurantName: z.string(),
   managerName: z.string(),
@@ -16,11 +17,10 @@ const signUpForm = z.object({
   email: z.string().email(),
 });
 
-// Tipo inferido a partir do schema
 type SignUpForm = z.infer<typeof signUpForm>;
 
 export function SignUp() {
-  const navigate = useNavigate(); // Correção: chamada correta do hook useNavigate()
+  const navigate = useNavigate(); 
 
   const {
     register,
@@ -28,24 +28,30 @@ export function SignUp() {
     formState: { isSubmitting },
   } = useForm<SignUpForm>();
 
-  // Função para lidar com o envio do formulário
+const {mutateAsync:registerRestaurantFn} = useMutation({
+  mutationFn:registerRestaurant
+})
+
+
   async function handleSignUp(data: SignUpForm) {
     console.log(data);
     try {
-      // Simula um atraso de 2 segundos (para visualizar o estado "Aguarde...")
-      await new Promise((resolve) => setTimeout(resolve, 2000));
-
-      // Exibe o toast de sucesso após o delay
+     await registerRestaurantFn({
+      restauranName:data.restaurantName,
+      managerName:data.managerName,
+       email:data.email,
+      phone:data.Phone,
+     })
       toast.success("Restaurante Cadastrado com Sucesso!", {
         action: {
           label: "Login",
-          onClick: () => navigate("/sign-in"), // Redireciona corretamente para o sign-in
+          onClick: () => navigate(`/sign-in?email=${data.email}`), 
         },
-        duration: 4000, // Tempo de exibição do toast
-        position: "bottom-right", // Posicionamento do toast
+        duration: 4000, 
+        position: "bottom-right",
       });
     } catch {
-      // Exibe o toast de erro em caso de falha
+      
       toast.error("Erro ao Cadastrar Restaurante.");
     }
   }
@@ -119,13 +125,13 @@ export function SignUp() {
             </button>
 
             <p className="px-6 text-center text-sm leading-relaxed text-muted-foreground">
-              Ao continuar, você concorda com nossos{" "}
+              Ao continuar, Você concorda com nossos{" "}
               <a className="underline underline-offset-4" href="">
-                termos de serviço
+                Termos de Serviço
               </a>{" "}
               e{" "}
               <a className="underline underline-offset-4" href="">
-                políticas de privacidade
+                Políticas De Privacidade
               </a>
             </p>
           </form>
