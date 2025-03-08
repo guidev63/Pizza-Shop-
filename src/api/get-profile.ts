@@ -11,7 +11,7 @@ interface GetProfileResponse {
 }
 
 export async function getProfile() {
-  const response = await api.get('/me')
+  const response = await api.get<GetProfileResponse>('/me')
 
 
   return response.data
