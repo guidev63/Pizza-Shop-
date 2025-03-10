@@ -4,15 +4,16 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel,
 import { useQuery } from "@tanstack/react-query";
 import { getProfile } from "@/api/get-profile";
 import { getManagedRestaurant } from "@/api/get-managed-restaurant";
+import { Skeleton } from "./ui/skeleton";
 
 export interface AccountMenuProps { }
 
 export function AccountMenu() {
-  const { data: profile } = useQuery({
+  const { data: profile, isLoading:isLoadingProfile  } = useQuery({
     queryKey: ['profile'],
     queryFn: getProfile,
   })
-  const { data: managedrestaurant } = useQuery({
+  const { data: managedrestaurant,isLoading:isLoadingManagedRestaurant } = useQuery({
     queryKey: ['managedrestaurant'],
     queryFn: getManagedRestaurant,
   })
@@ -24,7 +25,9 @@ export function AccountMenu() {
           variant="outline"
           className=" flex items-center gap-2 select-none"
         >
-          {managedrestaurant?.name}
+          {isLoadingManagedRestaurant ? (
+            <Skeleton className="h-4 w-40"/>
+          ):managedrestaurant?.name}
           <ChevronDown className="h-4 w-4" />
         </Button>
       </DropdownMenuTrigger>

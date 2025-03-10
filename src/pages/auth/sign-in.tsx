@@ -16,30 +16,30 @@ const signInForm = z.object({
   email: z.string().email(),
 });
 
-  type SignInForm = z.infer<typeof signInForm>;
+type SignInForm = z.infer<typeof signInForm>;
 
 export function SignIn() {
- const  [searchParams] = useSearchParams()
+  const [searchParams] = useSearchParams()
 
   const {
     register,
     handleSubmit,
     formState: { isSubmitting },
   } = useForm<SignInForm>({
-    defaultValues:{
-      email:searchParams.get('email') ?? '',
+    defaultValues: {
+      email: searchParams.get('email') ?? '',
     }
   });
   //começa o erro aqui em baixo
-  const {mutateAsync:authenticate} = useMutation({
-  mutationFn:signIn,
- })
-//----------------------------------------------------
+  const { mutateAsync: authenticate } = useMutation({
+    mutationFn: signIn,
+  })
+  //----------------------------------------------------
   async function handleSignIn(data: SignInForm) {
     try {
       console.log(data);
-     await authenticate({email:data.email})
-   
+      await authenticate({ email: data.email })
+
       toast.success("Enviamos um link de autenticação para seu e-mail!", {
         action: {
           label: "Reenviar",

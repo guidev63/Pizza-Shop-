@@ -1,5 +1,5 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import {  Utensils } from "lucide-react";
+import { Utensils } from "lucide-react";
 
 export function DayOrdersAmountCard() {
   return (
@@ -14,6 +14,6 @@ export function DayOrdersAmountCard() {
           <span className="text-rose-500 dark:text-rose-400">-4%</span> em relação a Ontem
         </p>
       </CardContent>
-    </Card> 
+    </Card>
   );
 }

@@ -15,12 +15,12 @@ export function Dashboard() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
           <MonthRevenueCard />
           <MonthOrdersAmountCard />
-          <DayOrdersAmountCard/>
-          <MonthCanceledOrdersAmountCard/>
+          <DayOrdersAmountCard />
+          <MonthCanceledOrdersAmountCard />
         </div>
         <div className="grid grid-cols-9 gap-4">
-         <RevenueChart/>
-         <PopularProductsChart/>
+          <RevenueChart />
+          <PopularProductsChart />
         </div>
       </div>
     </>

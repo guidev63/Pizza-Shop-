@@ -56,7 +56,7 @@ export function PopularProductsChart() {
                 const radius = 12 + innerRadius + (outerRadius - innerRadius)
                 const x = cx + radius * Math.cos(-midAngle * RADIAN)
                 const y = cy + radius * Math.sin(-midAngle * RADIAN)
-              
+
                 return (
                   <text
                     x={x}
@@ -76,8 +76,8 @@ export function PopularProductsChart() {
               {data.map((_, index) => {
                 return (
                   <Cell key={`cell-${index}`}
-                   fill={COLORS[index]} 
-                   className="stroke-background hover:opacity-80"  />
+                    fill={COLORS[index]}
+                    className="stroke-background hover:opacity-80" />
                 )
               })}
             </Pie>

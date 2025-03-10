@@ -20,7 +20,7 @@ const signUpForm = z.object({
 type SignUpForm = z.infer<typeof signUpForm>;
 
 export function SignUp() {
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
 
   const {
     register,
@@ -28,30 +28,30 @@ export function SignUp() {
     formState: { isSubmitting },
   } = useForm<SignUpForm>();
 
-const {mutateAsync:registerRestaurantFn} = useMutation({
-  mutationFn:registerRestaurant
-})
+  const { mutateAsync: registerRestaurantFn } = useMutation({
+    mutationFn: registerRestaurant
+  })
 
 
   async function handleSignUp(data: SignUpForm) {
     console.log(data);
     try {
-     await registerRestaurantFn({
-      restauranName:data.restaurantName,
-      managerName:data.managerName,
-       email:data.email,
-      phone:data.Phone,
-     })
+      await registerRestaurantFn({
+        restauranName: data.restaurantName,
+        managerName: data.managerName,
+        email: data.email,
+        phone: data.Phone,
+      })
       toast.success("Restaurante Cadastrado com Sucesso!", {
         action: {
           label: "Login",
-          onClick: () => navigate(`/sign-in?email=${data.email}`), 
+          onClick: () => navigate(`/sign-in?email=${data.email}`),
         },
-        duration: 4000, 
+        duration: 4000,
         position: "bottom-right",
       });
     } catch {
-      
+
       toast.error("Erro ao Cadastrar Restaurante.");
     }
   }

@@ -56,5 +56,5 @@ module.exports = {
       },
     },
   },
-  plugins: [require("tailwindcss-animate")], // Certifique-se de ter o plugin `tailwindcss-animate` instalado
+  plugins: [require("tailwindcss-animate")], 
 };
