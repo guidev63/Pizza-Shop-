@@ -8,7 +8,7 @@ export function Header() {
       <div className="flex h-16 items-center px-6 border-b">
         <div className="flex items-center">
           <Pizza className="h-6 w-6 text-muted-foreground" />
-          <div className="h-6 w-px bg-border mx-4"></div> 
+          <div className="h-6 w-px bg-border mx-4"></div>
         </div>
         <div className="flex space-x-6">
           <NavLink to="/">
