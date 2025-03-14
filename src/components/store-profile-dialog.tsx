@@ -6,15 +6,27 @@ import { Label } from "./ui/label";
 import { Textarea } from "./ui/textarea";
 import { useQuery } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
+import { z } from "zod";
+import {zodResolver} from '@hookform/resolvers'
+const storeProfileSchema = z.object({
+  name:z.string().min(1),
+  description: z.string(),
+})
 
-const storeProfile
+type StoreProfileSchema =z.infer<typeof storeProfileSchema>
 
 export function StoreProfileDialog() {
   const { data: managedrestaurant, } = useQuery({
     queryKey: ['managedrestaurant'],
     queryFn: getManagedRestaurant,
   })
-  const { } = useForm()
+  const {
+    register,
+    handleSubmit,
+   } = useForm<StoreProfileSchema>({
+    resolver:zodResolver(storeProfileSchema),
+    defaultValues:
+   })
   return (
     <DialogContent>
       <DialogHeader>
