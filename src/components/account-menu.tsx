@@ -16,6 +16,8 @@ export function AccountMenu() {
   const { data: managedrestaurant, isLoading: isLoadingManagedRestaurant } = useQuery({
     queryKey: ['managedrestaurant'],
     queryFn: getManagedRestaurant,
+    staleTime: Infinity,
+
   })
 
   return (
@@ -62,7 +64,7 @@ export function AccountMenu() {
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
-      <StoreProfileDialog/>
+      <StoreProfileDialog />
     </Dialog>
   );
 }
