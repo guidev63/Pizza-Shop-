@@ -4,7 +4,7 @@ import { DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHead
 import { Input } from "./ui/input";
 import { Label } from "./ui/label";
 import { Textarea } from "./ui/textarea";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -19,6 +19,8 @@ const storeProfileSchema = z.object({
 type StoreProfileSchema = z.infer<typeof storeProfileSchema>;
 
 export function StoreProfileDialog() {
+  const queryClient = useQueryClient();
+  
   const { data: managedRestaurant } = useQuery({
     queryKey: ["managedRestaurant"],
     queryFn: getManagedRestaurant,
@@ -31,28 +33,28 @@ export function StoreProfileDialog() {
     formState: { isSubmitting }
   } = useForm<StoreProfileSchema>({
     resolver: zodResolver(storeProfileSchema),
-    values: {
+    defaultValues: {
       name: managedRestaurant?.name ?? '',
-
       description: managedRestaurant?.description ?? '',
-
     },
   });
 
   const { mutateAsync: updateProfileFn } = useMutation({
     mutationFn: updateProfile,
-  })
+    onSuccess(_, { name, description }) {
+      const cached = queryClient.getQueryData(['managedRestaurant']);
+    },
+  });
 
   async function handleUpdateProfile(data: StoreProfileSchema) {
     try {
       await updateProfileFn({
         name: data.name,
         description: data.description,
-      })
-      toast.success('Perfil Atualizado Com sucesso!')
+      });
+      toast.success('Perfil atualizado com sucesso!');
     } catch {
-      toast.error('Falha ao Atualizar o Perfil, Tente Novamente!')
-
+      toast.error('Falha ao atualizar o perfil, tente novamente!');
     }
   }
 
@@ -61,7 +63,7 @@ export function StoreProfileDialog() {
       <DialogHeader>
         <DialogTitle>Perfil da Loja</DialogTitle>
         <DialogDescription>
-          Atualize as Informações do seu Estabelecimento visíveis ao seu Cliente
+          Atualize as informações do seu estabelecimento visíveis ao seu cliente.
         </DialogDescription>
       </DialogHeader>
 
@@ -73,7 +75,7 @@ export function StoreProfileDialog() {
           </div>
 
           <div className="grid grid-cols-4 items-center gap-4">
-            <Label className="text-right" htmlFor="description" >Descrição</Label>
+            <Label className="text-right" htmlFor="description">Descrição</Label>
             <Textarea className="col-span-3" id="description" {...register("description")} />
           </div>
         </div>
