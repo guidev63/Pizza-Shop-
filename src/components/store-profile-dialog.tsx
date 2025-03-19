@@ -1,4 +1,4 @@
-import { getManagedRestaurant } from "@/api/get-managed-restaurant";
+import { getManagedRestaurant, getManagedRestaurantResponse } from "@/api/get-managed-restaurant";
 import { Button } from "./ui/button";
 import { DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "./ui/dialog";
 import { Input } from "./ui/input";
@@ -42,7 +42,14 @@ export function StoreProfileDialog() {
   const { mutateAsync: updateProfileFn } = useMutation({
     mutationFn: updateProfile,
     onSuccess(_, { name, description }) {
-      const cached = queryClient.getQueryData(['managedRestaurant']);
+      const cached = queryClient.getQueryData<getManagedRestaurantResponse>(['managed-restaurant']);
+    if(cached){
+      queryClient.setQueriesData<getManagedRestaurantResponse>(['managed-restaurant'],{
+        ...cached,
+        name, 
+        description
+      })
+    }
     },
   });
 
