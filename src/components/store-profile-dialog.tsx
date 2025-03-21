@@ -57,7 +57,7 @@ export function StoreProfileDialog() {
       const { cached } = updateManagedRestaurantCache({ name, description });
       return { previousProfile: cached };
     },
-    onError: (_, __, context) => {
+    onError: (_,__, context) => {
       if (context?.previousProfile) {
         updateManagedRestaurantCache(context.previousProfile);
       }
@@ -79,7 +79,7 @@ export function StoreProfileDialog() {
   return (
     <DialogContent>
       <DialogHeader>
-        <DialogTitle>Perfil da Loja</DialogTitle>
+        <DialogTitle>Perfil Da Loja</DialogTitle>
         <DialogDescription>
           Atualize as informações do seu estabelecimento visíveis ao seu cliente.
         </DialogDescription>
@@ -89,7 +89,7 @@ export function StoreProfileDialog() {
         <div className="space-y-4 py-4">
           <div className="grid grid-cols-4 items-center gap-4">
             <Label className="text-right" htmlFor="name">
-              Nome
+            Nome
             </Label>
             <Input className="col-span-3" id="name" {...register("name")} />
           </div>
