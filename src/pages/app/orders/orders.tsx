@@ -8,7 +8,7 @@ import { getOrders } from "@/api/get-orders";
 
 export function Orders() {
 
-const { data: orders, } = useQuery({
+const { data: result, } = useQuery({
   queryKey:['orders'],
   queryFn getOrders,
 })
@@ -36,9 +36,9 @@ const { data: orders, } = useQuery({
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {Array.from({ length: 10 }).map((_, i) => {
-                  return <OrderTableRow key={i} />
-                })}
+               {result && result.orders.map(order =>{
+                 return <OrderTableRow  key={order.orderId} order={order}/>
+               })}
               </TableBody>
             </Table>
           </div>

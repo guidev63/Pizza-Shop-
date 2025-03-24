@@ -1,0 +1,1 @@
+type  OderStatus = 'pending' | 'canceled' | 'processing' | 'delivering' | 'delivered'
