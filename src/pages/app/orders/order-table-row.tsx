@@ -1,8 +1,9 @@
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogTrigger } from "@/components/ui/dialog";
 import { TableCell, TableRow } from "@/components/ui/table";
-import { ArrowRight, Search, X } from "lucide-react";
+import { ArrowRight, Currency, Search, X } from "lucide-react";
 import { OrderDetails } from "./order-details";
+import { OrderStatus } from "@/components/order-status";
 
 export interface OrderTableRowProps {
   order: {
@@ -32,13 +33,13 @@ export function OrderTableRow({ order }: OrderTableRowProps) {
       </TableCell>
       <TableCell className="text-muted-foreground">há 15 minutos</TableCell>
       <TableCell>
-        <div className="flex items-center gap-2">
-          <span className="h-2 w-2 rounded-full bg-slate-400" />
-          <span className="font-medium text-muted-foreground">Pendente</span>
-        </div>
+       <OrderStatus status={order.status}/>
       </TableCell>
-      <TableCell className="font-medium">Diego Schell Fernandes</TableCell>
-      <TableCell className="font-medium">R$149,98</TableCell>
+      <TableCell className="font-medium">{order.customerName}</TableCell>
+      <TableCell className="font-medium">{order.total.toLocaleString('pt-br'{
+        style:'currency',
+        Currency:'BRL',
+      })}</TableCell>
       <TableCell>
         <Button variant="outline" size="xs">
           <ArrowRight className="h-3 w-3 mr-2" />
