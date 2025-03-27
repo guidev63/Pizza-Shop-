@@ -4,11 +4,12 @@ import { TableCell, TableRow } from "@/components/ui/table";
 import { ArrowRight, Currency, Search, X } from "lucide-react";
 import { OrderDetails } from "./order-details";
 import { OrderStatus } from "@/components/order-status";
-
+import { formatDistanceToNow} from 'date-fns'
+import {ptBR } from 'date-fns/locale'
 export interface OrderTableRowProps {
   order: {
     ordersId: string;
-    createdAt: Date;
+    createdAt: string;
     status: "pending" | "canceled" | "processing" | "delivering" | "delivered";
     customerName: string;
   };
@@ -31,11 +32,14 @@ export function OrderTableRow({ order }: OrderTableRowProps) {
       <TableCell className="font-mono text-xs font-medium">
         {order.ordersId}
       </TableCell>
-      <TableCell className="text-muted-foreground">há 15 minutos</TableCell>
+      <TableCell className="text-muted-foreground">{formatDistanceToNow(order.createdAt,{
+        locale:ptBR,
+        addSuffix:true,
+      })}</TableCell>
       <TableCell>
        <OrderStatus status={order.status}/>
       </TableCell>
-      <TableCell className="font-medium">{order.customerName}</TableCell>
+      <TableCell className="font-medium">{order.customerName} </TableCell>
       <TableCell className="font-medium">{order.total.toLocaleString('pt-br'{
         style:'currency',
         Currency:'BRL',

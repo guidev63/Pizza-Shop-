@@ -3,7 +3,7 @@ import { api } from "@/lib/axios";
 export interface GetOrdersResponse {
   orders: {
     ordersId: string
-    createdAt: Date 
+    createdAt: string 
     status: 'pending' | 'canceled' | 'processing' | 'delivering' | 'delivered'
     customerName: string
 
