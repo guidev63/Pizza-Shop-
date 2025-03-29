@@ -16,6 +16,7 @@ export function Orders() {
     .number()
     .transform((page) => page - 1)
     .parse(searchParams.get("page") ?? "1"); 
+    
   const { data: result } = useQuery({
     queryKey: ["orders"],
     queryFn: () => getOrders({ pageIndex }),
@@ -51,8 +52,9 @@ export function Orders() {
               </TableBody>
             </Table>
           </div>
-
-          <Pagination pageIndex={0} totalCount={185} perPage={10} />
+           {result &&   (
+           <Pagination pageIndex={result.meta.pageIndex} totalCount={result.meta.totalCount} perPage={result.meta.perPage} />
+           )}
         </div>
       </div>
     </>
