@@ -23,9 +23,13 @@ export function Pagination({ pageIndex, perPage, totalCount, OnPageChange }: Pag
         <div className="flex items-center gap-2">
           <Button
             onClick={() => OnPageChange(0)}
-            variant="outline" className="h-8 w-8 p-0">
-            <ChevronsLeft className="h-4 w-4" />
-            <span className="sr-only">Primeira Página</span>
+            variant="outline"
+             className="h-8 w-8 p-0">
+            <ChevronsLeft className="h-4 w-4" 
+             disabled={pageIndex == 0}
+            />
+            <span className="sr-only"
+            >Primeira Página</span>
           </Button>
           <Button onClick={() => OnPageChange(pageIndex - 1)}
             disabled={pageIndex <= 0}
