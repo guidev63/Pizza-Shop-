@@ -1,16 +1,30 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { Search, X } from "lucide-react";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
 
-export interface OrderTableFiltersProps { }
-
+ const  ordersFiltersSchema = z.object({
+  orderId:z.string().optional(),
+  customerName:z.string().optional(),
+  status:z.string().optional(),
+ })
+ type OrdersFiltersSchema = z.infer<typeof ordersFiltersSchema>
 export function OrderTableFilters() {
+  const {register,handleSubmit,} = useForm<OrdersFiltersSchema>({
+    resolver:zodResolver(ordersFiltersSchema),
+  })
+   function handleFilter(data:OrdersFiltersSchema){
+
+   }
+
   return (
-    <form className="flex items-center gap-2">
+    <form onSubmit={handleSubmit(handleFilter)}  className="flex items-center gap-2">
       <span className="text-sm font-semibold">Filtros:</span>
-      <Input placeholder="ID do pedido" className="h-8 w-auto" />
-      <Input placeholder="Nome do Cliente" className="h-8 w-[320px]" />
+      <Input placeholder="ID do pedido" className="h-8 w-auto" {...register('orderId')}/>
+      <Input placeholder="Nome do Cliente" className="h-8 w-[320px]" {...register('customerName')} />
       <Select defaultValue="all">
         <SelectTrigger className="h-8 w-[180px]">
           <SelectValue />
