@@ -13,7 +13,7 @@ import { z } from "zod";
  })
  type OrdersFiltersSchema = z.infer<typeof ordersFiltersSchema>
 export function OrderTableFilters() {
-  const {register,handleSubmit,} = useForm<OrdersFiltersSchema>({
+  const {register,handleSubmit,control} = useForm<OrdersFiltersSchema>({
     resolver:zodResolver(ordersFiltersSchema),
   })
    function handleFilter(data:OrdersFiltersSchema){
@@ -25,19 +25,29 @@ export function OrderTableFilters() {
       <span className="text-sm font-semibold">Filtros:</span>
       <Input placeholder="ID do pedido" className="h-8 w-auto" {...register('orderId')}/>
       <Input placeholder="Nome do Cliente" className="h-8 w-[320px]" {...register('customerName')} />
-      <Select defaultValue="all">
-        <SelectTrigger className="h-8 w-[180px]">
-          <SelectValue />
-        </SelectTrigger>
-        <SelectContent>
-          <SelectItem value="all">todos</SelectItem  >
-          <SelectItem value="peding">Pendente</SelectItem  >
-          <SelectItem value="canceled">Cancelado</SelectItem  >
-          <SelectItem value="processing">Em preparo</SelectItem  >
-          <SelectItem value="delivering">Em Entrega </SelectItem  >
-          <SelectItem value="delivered"> Entregue </SelectItem  >
-        </SelectContent>
-      </Select>
+      <Controller
+      name="status"
+      control={control}
+      render={({fild:{name,onChange, value,disabled}}) =>{
+        return(
+ 
+          <Select defaultValue="all" name={name} onValueChange={onChange} value={value} disabled={disabled}>
+          <SelectTrigger className="h-8 w-[180px]">
+            <SelectValue />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="all">todos</SelectItem  >
+            <SelectItem value="peding">Pendente</SelectItem  >
+            <SelectItem value="canceled">Cancelado</SelectItem  >
+            <SelectItem value="processing">Em preparo</SelectItem  >
+            <SelectItem value="delivering">Em Entrega </SelectItem  >
+            <SelectItem value="delivered"> Entregue </SelectItem  >
+          </SelectContent>
+        </Select>
+
+        )
+      }} 
+      />
       <Button type="submit" variant="secondary" size="xs">
         <Search className="h-4 w-4 mr-2" />
         Filtrar Resultados
