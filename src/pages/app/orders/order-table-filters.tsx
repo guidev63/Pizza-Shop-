@@ -4,6 +4,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Search, X } from "lucide-react";
 import { useForm } from "react-hook-form";
+import { useSearchParams } from "react-router-dom";
 import { z } from "zod";
 
  const  ordersFiltersSchema = z.object({
@@ -13,11 +14,30 @@ import { z } from "zod";
  })
  type OrdersFiltersSchema = z.infer<typeof ordersFiltersSchema>
 export function OrderTableFilters() {
+  const [searchParams, setsearchParams] = useSearchParams()
+
+   const orderId = searchParams.get('orderId')
+   const customerName = searchParams.get('orderId')
+   const status = searchParams.get('orderId')
+
+
+
   const {register,handleSubmit,control} = useForm<OrdersFiltersSchema>({
     resolver:zodResolver(ordersFiltersSchema),
+    defaultValues:{
+      orderId:orderId ?? '',
+      customerName:customerName ?? '',
+      status:status ?? 'all',
+    },
   })
-   function handleFilter(data:OrdersFiltersSchema){
-
+   function handleFilter({orderId,customerName,status}:OrdersFiltersSchema){
+        setsearchParams(state =>{
+           if(orderId){
+            state.set('orderId', orderId)
+           }else {
+            state.delete('orderId')
+           }
+        })
    }
 
   return (
@@ -31,7 +51,11 @@ export function OrderTableFilters() {
       render={({fild:{name,onChange, value,disabled}}) =>{
         return(
  
-          <Select defaultValue="all" name={name} onValueChange={onChange} value={value} disabled={disabled}>
+          <Select defaultValue="all"
+           name={name}
+           onValueChange={onChange}
+            value={value} 
+            disabled={disabled}>
           <SelectTrigger className="h-8 w-[180px]">
             <SelectValue />
           </SelectTrigger>
