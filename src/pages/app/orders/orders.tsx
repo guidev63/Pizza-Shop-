@@ -11,7 +11,10 @@ import { z } from "zod";
 export function Orders() {
   const [searchParams, setSearchParams] = useSearchParams(); 
 
-  const pageIndex = z
+   const orderId =
+  const pageIndex = searchParams.get('orderId')
+  const custumerName = searchParams.get('custumerName')
+  const status = searchParams.get('status')
     .coerce
     .number()
     .transform((page) => page - 1)
